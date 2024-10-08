@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AnalyticsController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -32,4 +34,6 @@ Route::Get('/auth/google/call-back' , [GoogleAuthController::class , 'handleGoog
 
 Route::resource('/users', UserController::class);
 Route::resource('/analytics' , AnalyticsController::class);
+Route::resource('/category', CategoryController::class);
+Route::resource('/subCategory' , SubCategoryController::class);
 

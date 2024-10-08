@@ -91,6 +91,23 @@
                 <div data-i18n="Basic">Users</div>
             </a>
         </li>
+        <li class="menu-header mt-7">
+            <span class="menu-header-text">category &amp; Subs</span>
+        </li>
+       <!-- category -->
+        <li class="menu-item  @yield("category" , "")">
+            <a href="{{route('category.index')}}" class="menu-link">
+                <i class="ri-shopping-cart-2-line"></i>
+                <div data-i18n="Basic">Category</div>
+            </a>
+        </li>
+       <!-- sub category -->
+        <li class="menu-item  @yield("subCategory" , "")">
+            <a href="{{route('subCategory.index')}}" class="menu-link">
+                <i class="ri-shopping-cart-2-line"></i>
+                <div data-i18n="Basic">Sub Category</div>
+            </a>
+        </li>
 
 
 

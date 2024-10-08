@@ -12,8 +12,8 @@
                     <div class="card-body text-nowrap">
                         <h5 class="card-title mb-0 flex-wrap text-nowrap">The Last User Data 🎉</h5>
                         <h5 class="mb-2">{{$lastUser->name}}</h5>
-                        <h4 class="text-primary mb-0">{{$lastUser->role}}</h4>
-                        <p class="mb-2">{{$lastUser->email}}</p>
+                        <h5 class="text-primary mb-0">{{$lastUser->email}}</h5>
+                        <p class="mb-2">{{$lastUser->created_at->format('d M Y')}}</p>
                         <a href="javascript:;" class="btn btn-sm btn-primary">View details</a>
                     </div>
                     <img
