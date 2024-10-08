@@ -1,5 +1,5 @@
 @extends('layouts.dashboard')
-
+@section("user_active" , "active")
 @section('content')
     <!-- Content -->
     <div class="container-xxl flex-grow-1 container-p-y">

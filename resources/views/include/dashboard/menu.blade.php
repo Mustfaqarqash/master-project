@@ -77,7 +77,7 @@
 
     <ul class="menu-inner py-1">
         <!-- Dashboards -->
-        <li class="menu-item">
+        <li class="menu-item  @yield("analytics_active" , "") ">
             <a href="{{route('analytics.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons ri-home-smile-line"></i>
                 <div data-i18n="Basic">Analytics</div>
@@ -85,9 +85,9 @@
         </li>
 
         <!-- User -->
-        <li class="menu-item">
+        <li class="menu-item @yield("user_active" , "")">
             <a href="{{route('users.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons ri-home-smile-line"></i>
+                <i class="ri-user-3-line ri-22px me-2"></i>
                 <div data-i18n="Basic">Users</div>
             </a>
         </li>
