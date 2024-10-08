@@ -33,7 +33,7 @@ class UserController extends Controller
                 return $query->where('role', $role);
             })
             ->paginate(5);
-
+//        dd(User::find(1)->categories());
         return view('dashboard.users.index', compact('users',
             'search' ,
             'userCount' ,

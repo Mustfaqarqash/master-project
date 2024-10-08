@@ -12,10 +12,10 @@
             data-bs-dismiss="offcanvas"
             aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body my-auto mx-0 flex-grow-0">
-        <div class="col-xl">
-            <div class="mb-6">
-                <div class="card-body">
+    <div class="offcanvas-body">
+
+
+
                     <!-- Form for adding a new user -->
                     <form action="{{ route('users.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
@@ -71,6 +71,6 @@
                     </form>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+
+
+
