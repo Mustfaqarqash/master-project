@@ -108,6 +108,18 @@
                 <div data-i18n="Basic">Sub Category</div>
             </a>
         </li>
+        <li class="menu-item  @yield("stores" , "")">
+            <a href="{{route('stores.index')}}" class="menu-link">
+                <i class="ri-shopping-cart-2-line"></i>
+                <div data-i18n="Basic">Stores</div>
+            </a>
+        </li>
+        <li class="menu-item  @yield("product" , "")">
+            <a href="{{route('product.index')}}" class="menu-link">
+                <i class="ri-shopping-cart-2-line"></i>
+                <div data-i18n="Basic">product</div>
+            </a>
+        </li>
 
 
 

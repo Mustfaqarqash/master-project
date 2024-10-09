@@ -20,11 +20,11 @@
                             <p>No subcategory available yet.</p>
                         @endif
                         <img
-                            src="{{ $lastSubCategory->image ? asset('storage/' . $lastSubCategory->image) : asset('path/to/default-image.jpg') }}"
+                            src="{{ $lastSubCategory && $lastSubCategory->image ? asset('storage/' . $lastSubCategory->image) : asset('path/to/default-image.jpg') }}"
                             class="position-absolute bottom-0 end-0 me-5 mb-5"
                             width="83"
                             style="border-radius: 50%;"
-                            alt="{{ $lastSubCategory->name }} Image" />
+                            alt=" Image" />
 
                     </div>
                 </div>

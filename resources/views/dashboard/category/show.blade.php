@@ -29,6 +29,7 @@
            @foreach($subCategories as $subCategory)
                 <div class="col-md-3">
                     <div class="card h-100">
+
                         <img class="card-img-top" src="{{asset('storage/' . $subCategory->image )}}" alt="Card image cap" height="250" />
                         <div class="card-body">
                             <h5 class="card-title">{{$subCategory->name}}</h5>
