@@ -108,105 +108,41 @@
                 <div data-i18n="Basic">Sub Category</div>
             </a>
         </li>
-        <li class="menu-item  @yield("stores" , "")">
-            <a href="{{route('stores.index')}}" class="menu-link">
-                <i class="ri-shopping-cart-2-line"></i>
-                <div data-i18n="Basic">Stores</div>
-            </a>
-        </li>
+
         <li class="menu-item  @yield("product" , "")">
             <a href="{{route('product.index')}}" class="menu-link">
                 <i class="ri-shopping-cart-2-line"></i>
                 <div data-i18n="Basic">product</div>
             </a>
         </li>
-
-
-
         <li class="menu-header mt-7">
-            <span class="menu-header-text">Apps &amp; Pages</span>
+            <span class="menu-header-text">store</span>
         </li>
-        <!-- Apps -->
-        <li class="menu-item">
-            <a
-                href="https://demos.themeselection.com/materio-bootstrap-html-admin-template/html/vertical-menu-template/app-email.html"
-                target="_blank"
-                class="menu-link">
-                <i class="menu-icon tf-icons ri-mail-open-line"></i>
-                <div data-i18n="Email">Email</div>
-                <div class="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
+        <li class="menu-item  @yield("stores" , "")">
+            <a href="{{route('stores.index')}}" class="menu-link">
+                <i class="ri-shopping-cart-2-line"></i>
+                <div data-i18n="Basic">Stores</div>
             </a>
         </li>
-
-        <!-- Pages -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-layout-left-line"></i>
-                <div data-i18n="Account Settings">Account Settings</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
-                        <div data-i18n="Account">Account</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-notifications.html" class="menu-link">
-                        <div data-i18n="Notifications">Notifications</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="pages-account-settings-connections.html" class="menu-link">
-                        <div data-i18n="Connections">Connections</div>
-                    </a>
-                </li>
-            </ul>
+        <li class="menu-header mt-7">
+            <span class="menu-header-text">category &amp; offers</span>
         </li>
-
-        <!-- Components -->
-        <li class="menu-header mt-7"><span class="menu-header-text">Components</span></li>
-        <!-- Cards -->
-        <li class="menu-item">
-            <a href="cards-basic.html" class="menu-link">
-                <i class="menu-icon tf-icons ri-bank-card-2-line"></i>
-                <div data-i18n="Basic">Cards</div>
+        <li class="menu-item  @yield("offersCategory" , "")">
+            <a href="{{route('offersCategory.index')}}" class="menu-link">
+                <i class="ri-shopping-cart-2-line"></i>
+                <div data-i18n="Basic">offer category</div>
+            </a>
+        </li>
+        <li class="menu-item  @yield("offer" , "")">
+            <a href="{{route('offer.index')}}" class="menu-link">
+                <i class="ri-shopping-cart-2-line"></i>
+                <div data-i18n="Basic">offer</div>
             </a>
         </li>
 
 
-        <!-- Forms & Tables -->
-        <li class="menu-header fw-medium mt-4"><span class="menu-header-text">Forms &amp; Tables</span></li>
-        <!-- Forms -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons ri-radio-button-line"></i>
-                <div data-i18n="Form Elements">Form Elements</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="forms-basic-inputs.html" class="menu-link">
-                        <div data-i18n="Basic Inputs">Basic Inputs</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="forms-input-groups.html" class="menu-link">
-                        <div data-i18n="Input groups">Input groups</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
 
-        <!-- Misc -->
-        <li class="menu-header mt-7"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-            <a
-                href="https://github.com/themeselection/materio-bootstrap-html-admin-template-free/issues"
-                target="_blank"
-                class="menu-link">
-                <i class="menu-icon tf-icons ri-lifebuoy-line"></i>
-                <div data-i18n="Support">Support</div>
-            </a>
-        </li>
+
 
     </ul>
 </aside>

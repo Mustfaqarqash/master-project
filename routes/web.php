@@ -3,6 +3,8 @@
 use App\Http\Controllers\AnalyticsController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoogleAuthController;
+use App\Http\Controllers\OfferController;
+use App\Http\Controllers\OffersCategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\SubCategoryController;
@@ -38,8 +40,14 @@ Route::resource('/users', UserController::class);
 Route::resource('/analytics' , AnalyticsController::class);
 Route::resource('/category', CategoryController::class);
 Route::resource('/subCategory' , SubCategoryController::class);
-Route::resource('stores', StoreController::class);
-Route::resource('product', ProductController::class);
+Route::resource('/stores', StoreController::class);
+Route::resource('/product', ProductController::class);
+Route::resource('/offer', OfferController::class);
+Route::resource('/offersCategory', OffersCategoryController::class);
+
+Route::get('/landingPage' , function(){
+    return view('landingPage');
+});
 
 
 
