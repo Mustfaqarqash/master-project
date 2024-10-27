@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -119,4 +120,78 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('users.index')->with('success', 'User deleted successfully');
     }
+    public function showAccount()
+    {
+        $user = Auth::user(); // Get the authenticated user
+        return view('auth.account.index', compact('user')); // Show account view
+    }
+
+    // Update the authenticated user's account information
+    public function updateAccount(Request $request)
+    {
+        $user = Auth::user(); // Get the authenticated user
+
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|min:6',
+            'organization' => 'nullable|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'address' => 'required|string|max:255',
+            'country' => 'required|string|max:100',
+            'time_zone' => 'required|string|max:100',
+            'currency' => 'required|string|max:10',
+            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:800',
+        ]);
+
+        // Update user details
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+
+        if ($request->password) {
+            $user->password = Hash::make($request->password); // Update password if provided
+        }
+
+        if ($request->hasFile('profile_image')) {
+            // Delete old image if exists
+            if ($user->image) {
+                Storage::delete(str_replace('storage/', 'public/', $user->image));
+            }
+            $user->image = $request->file('profile_image')->store('uploads', 'public');
+        }
+
+        // Other fields
+        $user->organization = $request->organization;
+        $user->phone_number = $request->phone_number;
+        $user->address = $request->address;
+        $user->country = $request->country;
+        $user->time_zone = $request->time_zone;
+        $user->currency = $request->currency;
+
+        $user->save(); // Save changes
+
+        return redirect()->route('account.show')->with('success', 'Account updated successfully.');
+    }
+
+    // Deactivate the authenticated user's account
+    public function deactivateAccount(Request $request)
+    {
+        $user = Auth::user(); // Get the authenticated user
+
+        $request->validate([
+            'account_deactivation' => 'required|accepted',
+        ]);
+
+        // Delete the user's image if it exists
+        if ($user->image) {
+            Storage::delete(str_replace('storage/', 'public/', $user->image));
+        }
+
+        $user->delete(); // Delete the user account
+
+        return redirect()->route('login')->with('success', 'Account deactivated successfully.');
+    }
+
 }

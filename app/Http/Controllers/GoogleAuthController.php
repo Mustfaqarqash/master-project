@@ -32,6 +32,7 @@ class GoogleAuthController extends Controller
                     'image' => $googleUser->getAvatar(),
                 ]);
                 Auth::login($newUser);
+
             } else {
                 Auth::login($user);
             }

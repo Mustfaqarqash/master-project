@@ -1,42 +1,69 @@
-<!-- Hero Section -->
-<div class="gradient-overlay-half-primary-v1 bg-img-hero" style="background-image: url(images/img15.jpg);">
-    <div class="container space-2 space-4-top--lg space-3-bottom--lg">
-        <div class="row align-items-lg-center">
-            <div class="col-lg-12 mb-lg-0">
-                <!-- Description -->
-                <div class="pr-lg-12 mb-5">
-                    <h1 class="display-4 font-size-48--md-down text-white">World's Largest Marketplace</h1>
-                    <p class="lead text-white">Search from over 15,000+ classifieds & Post unlimited classifieds free!</p>
-                </div>
-                <form class="cflyformtheme cflyformbannersearch">
-                    <fieldset>
-                        <div class="form-group cflyinputwithicon"> <i class="fas fa-bullhorn"></i>
-                            <input type="text" name="customword" class="form-control" placeholder="What are you looking for">
-                        </div>
-                        <div class="form-group cflyinputwithicon"> <i class="far fa-paper-plane"></i> <a class="cflybtnsharelocation fa fa-crosshairs" href="javascript:void(0);"></a>
-                            <input type="text" name="yourlocation" class="form-control" placeholder="Your Location">
-                        </div>
-                        <div class="form-group cflyinputwithicon"> <i class="fab fa-staylinked"></i>
-                            <div class="cflyselect">
-                                <select>
-                                    <option value="none">Select Category</option>
-                                    <option value="none">Mobiles</option>
-                                    <option value="none">Electronics</option>
-                                    <option value="none">Vehicles</option>
-                                    <option value="none">Bikes</option>
-                                    <option value="none">Animals</option>
-                                    <option value="none">Furniture</option>
-                                    <option value="none">toys</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button class="cflybtn" type="button">Search Now</button>
-                    </fieldset>
-                </form>
+<!--====== Primary Slider ======-->
+<div class="s-skeleton s-skeleton--h-600 s-skeleton--bg-grey">
+    <div class="owl-carousel primary-style-1" id="hero-slider">
+        <div class="hero-slide hero-slide--1">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider-content slider-content--animation">
 
-                <!-- End Description -->
+                            <span class="content-span-1 u-c-secondary">Latest Update Stock</span>
+
+                            <span class="content-span-2 u-c-secondary">30% Off On Electronics</span>
+
+                            <span class="content-span-3 u-c-secondary">Find electronics on best prices, Also Discover most selling products of electronics</span>
+
+                            <span class="content-span-4 u-c-secondary">Starting At
+
+                                            <span class="u-c-brand">$1050.00</span></span>
+
+                            <a class="shop-now-link btn--e-brand" href="shop-side-version-2.html">SHOP NOW</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide hero-slide--2">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider-content slider-content--animation">
+
+                            <span class="content-span-1 u-c-white">Find Top Brands</span>
+
+                            <span class="content-span-2 u-c-white">10% Off On Electronics</span>
+
+                            <span class="content-span-3 u-c-white">Find electronics on best prices, Also Discover most selling products of electronics</span>
+
+                            <span class="content-span-4 u-c-white">Starting At
+
+                                            <span class="u-c-brand">$380.00</span></span>
+
+                            <a class="shop-now-link btn--e-brand" href="shop-side-version-2.html">SHOP NOW</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-slide hero-slide--3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider-content slider-content--animation">
+
+                            <span class="content-span-1 u-c-secondary">Find Top Brands</span>
+
+                            <span class="content-span-2 u-c-secondary">10% Off On Electronics</span>
+
+                            <span class="content-span-3 u-c-secondary">Find electronics on best prices, Also Discover most selling products of electronics</span>
+
+                            <span class="content-span-4 u-c-secondary">Starting At
+
+                                            <span class="u-c-brand">$550.00</span></span>
+
+                            <a class="shop-now-link btn--e-brand" href="shop-side-version-2.html">SHOP NOW</a></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-<!-- End Hero Section -->
+<!--====== End - Primary Slider ======-->

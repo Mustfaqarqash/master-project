@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class offers_favorite extends Model
 {
-    protected $fillable = ['is_favorite', 'offer_id'];
+    protected $fillable = ['is_favorite', 'offer_id' , 'user_id'];
 
     // Relationship: Favorite belongs to an offer
     public function offer()

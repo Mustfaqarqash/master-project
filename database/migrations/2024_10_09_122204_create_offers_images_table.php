@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('offers_images', function (Blueprint $table) {
             $table->id();
-
             $table->unsignedBigInteger('offer_id');
             $table->foreign('offer_id')->references('id')->on('offers');
             $table->timestamps();

@@ -47,4 +47,9 @@ class offer extends Model
     {
         return $this->hasMany(offers_feedback::class, 'offer_id');
     }
+    public function isFavoritedBy(User $user)
+    {
+        return $this->favorites()->where('user_id', $user->id)->exists();
+    }
+
 }

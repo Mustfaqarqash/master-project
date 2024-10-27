@@ -106,7 +106,8 @@
                         <tr>
                             <td>
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image->path) }}" alt="Product Image" width="50px" style="border-radius: 50%">
+                                    <img src="{{ asset('storage/' . $product->image->path) }}
+                                    " alt="Product Image" width="50px" style="border-radius: 50%">
                                 @else
                                     <img src="default-image-path.jpg" alt="Default Image" width="40px" style="border-radius: 50%">
                                 @endif

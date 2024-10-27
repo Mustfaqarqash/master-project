@@ -181,4 +181,42 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('product.index')->with('success', 'Product deleted successfully!');
     }
+    public function showUserSide(string $id)
+    {
+        // Fetch the product with all the necessary relationships
+        $product = Product::with(['images', 'subCategory', 'rates', 'feedbacks'])->find($id);
+        $allProduct = Product::all();
+
+        // Check if the product exists
+        if (!$product) {
+            return abort(404);
+        }
+
+        // Calculate average rating and total reviews for the main product
+        $product->averageRating = $product->rates->count() > 0
+            ? $product->rates->sum('rate') / $product->rates->count()
+            : 0;
+        $product->totalReviews = $product->feedbacks->count();
+        $reviewes = $product->feedbacks;
+
+        // Find related products in the same subCategory and calculate their ratings and review counts
+        $relatedProduct = $allProduct->where('sub_category_id', $product->sub_category_id)->take(4);
+
+        foreach ($relatedProduct as $related) {
+            $related->averageRating = $related->rates->count() > 0
+                ? $related->rates->sum('rate') / $related->rates->count()
+                : 0;
+            $related->totalReviews = $related->feedbacks->count();
+        }
+
+        return view('userSide.productDetails.index', [
+            'product' => $product,
+            'reviewes' => $reviewes,
+            'relatedProduct' => $relatedProduct,
+        ]);
+    }
+
+
+
+
 }

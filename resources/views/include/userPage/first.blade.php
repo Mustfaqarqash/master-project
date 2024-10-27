@@ -1,18 +1,33 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="no-js" lang="en">
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link href="{{asset('assets/asset/css/style.css')}}" type="text/css" rel="stylesheet" />
-    <!-- Favicon -->
-    <!-- Favicon and Touch Icons -->
-    <link href="{{asset('assets/asset/images/favicon.png')}}" rel="shortcut icon" type="image/png">
-    <link href="{{asset('assets/asset/images/apple-touch-icon.png')}}" rel="apple-touch-icon">
-    <link href="{{asset('assets/asset/images/apple-touch-icon-72x72.png')}}" rel="apple-touch-icon" sizes="72x72">
-    <link href="{{asset('assets/asset/images/apple-touch-icon-114x114.png')}}" rel="apple-touch-icon" sizes="114x114">
-    <link href="{{asset('assets/asset/images/apple-touch-icon-144x144.png')}}" rel="apple-touch-icon" sizes="144x144">
-    <title>Classifly - Classified Ads HTML Template</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="{{asset('assets/asset/images/favicon.png')}}" rel="shortcut icon">
+    <title>Ludus - Electronics, Apparel, Computers, Books, DVDs & more</title>
+
+    <!--====== Google Font ======-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+
+    <!--====== Vendor Css ======-->
+    <link rel="stylesheet" href="{{asset('assets/asset/css/vendor.css')}}">
+
+    <!--====== Utility-Spacing ======-->
+    <link rel="stylesheet" href="{{asset('assets/asset/css/utility.css')}}">
+
+    <!--====== App ======-->
+    <link rel="stylesheet" href="{{asset('assets/asset/css/app.color5.css')}}">
+
 </head>
-<body>
+<body class="config">
+<div class="preloader is-active">
+    <div class="preloader__wrap">
+
+        <img class="preloader__img" src="{{asset('asset/images/preloader.png')}}" alt=""></div>
+</div>
+
+<!--====== Main App ======-->
+<div id="app">

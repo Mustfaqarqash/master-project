@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\productFeedBack;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProductFeedBackController extends Controller
 {
@@ -28,8 +29,22 @@ class ProductFeedBackController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'feedback' => 'required|string|max:255',
+            'product_id' => 'required|exists:products,id',
+        ]);
+
+        // Create the feedback
+        ProductFeedBack::create([
+            'feedback' => $validated['feedback'],
+            'user_id' => Auth::id(), // Use the currently authenticated user ID
+            'product_id' => $validated['product_id'],
+        ]);
+
+        return redirect()->back()->with('success', 'Thank you for your feedback!');
     }
+
+
 
     /**
      * Display the specified resource.
