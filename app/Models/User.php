@@ -48,4 +48,7 @@ class User extends Authenticatable
     public function categories(){
         return $this->hasMany(Category::class , 'category_id');
     }
+    public function store(){
+        return $this->hasOne(Store::class , );
+    }
 }

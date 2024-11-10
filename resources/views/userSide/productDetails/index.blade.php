@@ -150,20 +150,12 @@
                                     <div class="pd-detail-inline-2">
 
                                         <div class="u-s-m-b-15">
-
-
                                                 @csrf <!-- Laravel CSRF protection -->
                                                 <input type="hidden" name="product_id" value="{{$product->id}}" >
                                                 <input type="hidden" name="name" value="{{$product->name}}">
                                                 <input type="hidden" name="price" value="{{$product->price}}">
                                                 <input type="number" name="quantity" value="1" min="1" max="{{$product->quantity}}" required>
-
-
                                                     <button class="btn btn--e-brand-b-2" type="submit">Add to Cart</button>
-
-
-
-
                                         </div>
                                     </div>
                                 </form>

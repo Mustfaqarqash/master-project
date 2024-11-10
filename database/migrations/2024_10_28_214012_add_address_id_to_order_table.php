@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('offers_favorites', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable()->after('offer_id');
-            $table->foreign('user_id')->references('id')->on('users');
-
+        Schema::table('orders', function (Blueprint $table) {
+            $table->unsignedBigInteger('address_id')->nullable();
+            $table->foreign('address_id')->references('id')->on('addresses');
+            $table->text('note')->nullable();
         });
     }
 
@@ -23,7 +23,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('offers_favorites', function (Blueprint $table) {
+        Schema::table('order', function (Blueprint $table) {
             //
         });
     }

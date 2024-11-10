@@ -1,3 +1,7 @@
+@php
+    use Illuminate\Support\Facades\Cookie;
+    $cart = json_decode(Cookie::get('cart', json_encode([])), true);
+@endphp
 <!--====== Main Header ======-->
 <header class="header--style-1">
 
@@ -49,24 +53,37 @@
                                 <ul style="width:120px">
                                     <li>
 
-                                        <a href="dashboard.html"><i class="fas fa-user-circle u-s-m-r-6"></i>
+                                        <a href="dashboard.html">
 
-                                            <span>Account</span></a></li>
+                                            <i class="fas fa-user-circle u-s-m-r-6"></i>
+                                            <span>Account</span>
+
+                                        </a>
+                                    </li>
+                                    @if(Auth::check())  <!-- Check if the user is authenticated -->
                                     <li>
-
-                                        <a href="signup.html"><i class="fas fa-user-plus u-s-m-r-6"></i>
-
-                                            <span>Signup</span></a></li>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                            @csrf
+                                        </form>
+                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                            <i class="fas fa-lock-open u-s-m-r-6"></i>
+                                            <span>Signout</span>
+                                        </a>
+                                    </li>
+                                    @else  <!-- If the user is not authenticated -->
                                     <li>
-
-                                        <a href="signin.html"><i class="fas fa-lock u-s-m-r-6"></i>
-
-                                            <span>Signin</span></a></li>
+                                        <a href="{{ route('register') }}">
+                                            <i class="fas fa-user-plus u-s-m-r-6"></i>
+                                            <span>Signup</span>
+                                        </a>
+                                    </li>
                                     <li>
-
-                                        <a href="signup.html"><i class="fas fa-lock-open u-s-m-r-6"></i>
-
-                                            <span>Signout</span></a></li>
+                                        <a href="{{ route('login') }}">
+                                            <i class="fas fa-lock u-s-m-r-6"></i>
+                                            <span>Signin</span>
+                                        </a>
+                                    </li>
+                                    @endif
                                 </ul>
                                 <!--====== End - Dropdown ======-->
                             </li>
@@ -126,10 +143,10 @@
                             </li>
                             <li data-tooltip="tooltip" data-placement="left" title="Contact">
 
-                                <a href="tel:+0900901904"><i class="fas fa-phone-volume"></i></a></li>
+                                <a href="tel:+00962788033179"><i class="fas fa-phone-volume"></i></a></li>
                             <li data-tooltip="tooltip" data-placement="left" title="Mail">
 
-                                <a href="mailto:contact@domain.com"><i class="far fa-envelope"></i></a></li>
+                                <a href="mailto:mostfakarkash7@gmail.com"><i class="far fa-envelope"></i></a></li>
                         </ul>
                         <!--====== End - List ======-->
                     </div>
@@ -899,7 +916,7 @@
                         <ul class="ah-list ah-list--design2 ah-list--link-color-secondary">
                             <li>
 
-                                <a href="shop-side-version-2.html">NEW ARRIVALS</a></li>
+                                <a href="{{route('productPage')}}">NEW ARRIVALS</a></li>
                             <li class="has-dropdown">
 
                                 <a>PAGES<i class="fas fa-angle-down u-s-m-l-6"></i></a>
@@ -938,10 +955,10 @@
                                         <ul style="width:200px">
                                             <li>
 
-                                                <a href="signin.html">Signin / Already Registered</a></li>
+                                                <a href="{{route('login')}}">Signin / Already Registered</a></li>
                                             <li>
 
-                                                <a href="signup.html">Signup / Register</a></li>
+                                                <a href="">Signup / Register</a></li>
                                             <li>
 
                                                 <a href="lost-password.html">Lost Password</a></li>
@@ -1177,15 +1194,17 @@
                         <ul class="ah-list ah-list--design1 ah-list--link-color-secondary">
                             <li>
 
-                                <a href="index.html"><i class="fas fa-home u-c-brand"></i></a></li>
+                                <a href="{{route('landingPage')}}"><i class="fas fa-home u-c-brand"></i></a></li>
                             <li>
 
                                 <a href="wishlist.html"><i class="far fa-heart"></i></a></li>
                             <li class="has-dropdown">
 
                                 <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
-
-                                    <span class="total-item-round">2</span></a>
+                                    @php
+                                        $itemCount = collect($cart)->sum('quantity');
+                                    @endphp
+                                    <span class="total-item-round">{{$itemCount}}</span></a>
 
                                 <!--====== Dropdown ======-->
 
@@ -1194,117 +1213,50 @@
 
                                     <!--====== Mini Product Container ======-->
                                     <div class="mini-product-container gl-scroll u-s-m-b-15">
+                                        @foreach($cart as $item)
+                                            <!--====== Card for mini cart ======-->
+                                            <div class="card-mini-product">
+                                                <div class="mini-product">
+                                                    <div class="mini-product__image-wrapper">
 
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
+                                                        <a class="mini-product__link" href="{{route('productDetails' , $item['product_id'])}}">
 
-                                                    <a class="mini-product__link" href="product-detail.html">
+                                                            @php
+                                                                $product = \App\Models\product::find($item['product_id']);
+                                                                $image= $product->images->first()->path;
+                                                            @endphp
 
-                                                        <img class="u-img-fluid" src="images/product/electronic/product3.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                            <span class="mini-product__category">
-
-                                                                <a href="shop-side-version-2.html">Electronics</a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                                <a href="product-detail.html">Yellow Wireless Headphone</a></span>
-
-                                                    <span class="mini-product__quantity">1 x</span>
-
-                                                    <span class="mini-product__price">$8</span></div>
-                                            </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-
-
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-
-                                                    <a class="mini-product__link" href="product-detail.html">
-
-                                                        <img class="u-img-fluid" src="images/product/electronic/product18.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
+                                                            <img class="u-img-fluid" src="{{asset('storage/' . $image)}}" alt="{{ $item['name'] }}">
+                                                        </a>
+                                                    </div>
+                                                    <div class="mini-product__info-wrapper">
 
                                                             <span class="mini-product__category">
+                                                                 @php
+                                                                     $category = $product->subCategory->name;
+                                                                 @endphp
+                                                                <a href="{{route('productPage')}}">{{$category}}</a>
+                                                            </span>
 
-                                                                <a href="shop-side-version-2.html">Electronics</a></span>
+                                                        <span class="mini-product__name">
 
-                                                    <span class="mini-product__name">
+                                                                <a href="{{route('productDetails' , $item['product_id'])}}">{{$item['name']}}</a></span>
 
-                                                                <a href="product-detail.html">Nikon DSLR Camera 4k</a></span>
+                                                        <span class="mini-product__quantity">x{{$item['quantity']}}</span>
 
-                                                    <span class="mini-product__quantity">1 x</span>
+                                                        <span class="mini-product__price">${{$item['price']}}</span></div>
+                                                </div>
 
-                                                    <span class="mini-product__price">$8</span></div>
+                                                <form action="{{ route('cart.delete', $item['product_id']) }}" method="POST">
+                                                    @csrf
+                                                    <button type="submit" class="far fa-trash-alt table-p__delete-link" onclick="return confirm('Are you sure you want to remove this item?');"></button>
+                                                </form>
                                             </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
+                                            <!--====== End - Card for mini cart ======-->
+                                        @endforeach
 
 
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
 
-                                                    <a class="mini-product__link" href="product-detail.html">
-
-                                                        <img class="u-img-fluid" src="images/product/women/product8.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                            <span class="mini-product__category">
-
-                                                                <a href="shop-side-version-2.html">Women Clothing</a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                                <a href="product-detail.html">New Dress D Nice Elegant</a></span>
-
-                                                    <span class="mini-product__quantity">1 x</span>
-
-                                                    <span class="mini-product__price">$8</span></div>
-                                            </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
-
-
-                                        <!--====== Card for mini cart ======-->
-                                        <div class="card-mini-product">
-                                            <div class="mini-product">
-                                                <div class="mini-product__image-wrapper">
-
-                                                    <a class="mini-product__link" href="product-detail.html">
-
-                                                        <img class="u-img-fluid" src="images/product/men/product8.jpg" alt=""></a></div>
-                                                <div class="mini-product__info-wrapper">
-
-                                                            <span class="mini-product__category">
-
-                                                                <a href="shop-side-version-2.html">Men Clothing</a></span>
-
-                                                    <span class="mini-product__name">
-
-                                                                <a href="product-detail.html">New Fashion D Nice Elegant</a></span>
-
-                                                    <span class="mini-product__quantity">1 x</span>
-
-                                                    <span class="mini-product__price">$8</span></div>
-                                            </div>
-
-                                            <a class="mini-product__delete-link far fa-trash-alt"></a>
-                                        </div>
-                                        <!--====== End - Card for mini cart ======-->
                                     </div>
                                     <!--====== End - Mini Product Container ======-->
 
@@ -1312,15 +1264,20 @@
                                     <!--====== Mini Product Statistics ======-->
                                     <div class="mini-product-stat">
                                         <div class="mini-total">
-
+                                            @php
+                                                $total = collect($cart)->sum(function($item) {
+                                                    return $item['price'] * $item['quantity'];
+                                                });
+                                                $tax= 10;
+                                            @endphp
                                             <span class="subtotal-text">SUBTOTAL</span>
 
-                                            <span class="subtotal-value">$16</span></div>
+                                            <span class="subtotal-value">${{$total + $tax}}</span></div>
                                         <div class="mini-action">
 
-                                            <a class="mini-link btn--e-brand-b-2" href="checkout.html">PROCEED TO CHECKOUT</a>
+                                            <a class="mini-link btn--e-brand-b-2" href="{{route('checkoutView')}}">PROCEED TO CHECKOUT</a>
 
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="cart.html">VIEW CART</a></div>
+                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="{{route('cart.index')}}">VIEW CART</a></div>
                                     </div>
                                     <!--====== End - Mini Product Statistics ======-->
                                 </div>

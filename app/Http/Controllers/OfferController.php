@@ -7,6 +7,7 @@ use App\Models\offersCategory;
 use App\Models\product;
 use App\Models\store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class OfferController extends Controller
@@ -16,19 +17,34 @@ class OfferController extends Controller
      */
     public function index(Request $request)
     {
-        // Fetch offers with relationships and search functionality
-        $search = $request->input('search');
-        $offers = Offer::with(['category', 'store', 'images'])
-            ->when($search, function($query, $search) {
-                return $query->where('title', 'like', '%' . $search . '%')
-                    ->orWhere('description', 'like', '%' . $search . '%');
-            })
-            ->paginate(5); // Adjust the pagination as per your requirement
-        $stores  = store::all();
-        $offerCategories =offersCategory::all();
-        // Pass offers to the view
+        // Check if the user has a store before accessing store_id
+        $userStoreId = Auth::user()->store ? Auth::user()->store->id : null;
+
+        // Initialize the query for offers
+        $query = Offer::query();
+
+        // Apply search filter
+        if ($search = $request->input('search')) {
+            $query->where('title', 'like', "%$search%")
+                ->orWhere('description', 'like', "%$search%");
+        }
+
+        // Filter by user's store_id if it exists
+        if ($userStoreId) {
+            $query->orWhere('store_id', $userStoreId);
+        }
+
+        // Fetch paginated offers with relationships
+        $offers = $query->with('category', 'store', 'images')->paginate(5); // Adjust pagination as needed
+
+        // Fetch other data for the view
+        $stores = Store::all();
+        $offerCategories = OffersCategory::all();
+
         return view('dashboard.offer.index', compact('offers', 'stores', 'offerCategories'));
     }
+
+
 
 
     /**
@@ -149,6 +165,14 @@ class OfferController extends Controller
      */
     public function destroy(offer $offer)
     {
-        //
+        $offer->delete();
+        return redirect()->route('offer.index')->with('success', 'Offer deleted successfully!');
     }
+    public function indexUserSide()
+    {
+        $offers = Offer::with('category', 'store', 'images')->paginate(6);
+        return view('userSide.offerPage.index', compact('offers'));
+    }
+
+
 }

@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('offers_favorites', function (Blueprint $table) {
-            $table->unsignedBigInteger('user_id')->nullable()->after('offer_id');
-            $table->foreign('user_id')->references('id')->on('users');
-
+        Schema::table('order_details', function (Blueprint $table) {
+            $table->string('payment_method');
+            //
         });
     }
 
@@ -23,8 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('offers_favorites', function (Blueprint $table) {
-            //
-        });
+
     }
 };

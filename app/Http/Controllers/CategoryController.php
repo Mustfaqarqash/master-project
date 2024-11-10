@@ -63,6 +63,7 @@ class CategoryController extends Controller
             'description' => $request->description,
             'user_id' => $request->user_id,
             'image' => $imagePath, // Save image path if uploaded
+
         ]);
 
         // Redirect back to the category index with success message

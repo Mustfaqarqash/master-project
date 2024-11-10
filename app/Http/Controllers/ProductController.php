@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\category;
 use App\Models\image;
 use App\Models\product;
 use App\Models\store;
 use App\Models\subCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 
 class ProductController extends Controller
 {
@@ -15,24 +18,32 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        // Search functionality
-        $search = $request->input('search');
-        $stores = store::all();
-        $subCategories = subCategory::all();
-        // Fetch last product added
-        $lastProduct = Product::latest()->first();
+        // Check if the user has a store before accessing store_id
+        $userStoreId = Auth::user()->store ? Auth::user()->store->id : null;
 
-        // Fetch all products with pagination
+        // Initialize the query for products
         $query = Product::query();
 
-        if ($search) {
+        // Apply search filter
+        if ($search = $request->input('search')) {
             $query->where('name', 'like', "%$search%")
                 ->orWhere('description', 'like', "%$search%");
         }
 
+        // Filter by user's store_id if it exists
+        if ($userStoreId) {
+            $query->orWhere('store_id', $userStoreId);
+        }
+
+        // Fetch paginated products with relationships
         $products = $query->with('subCategory', 'store', 'image')->paginate(10);
 
-        return view('dashboard.product.index', compact('products', 'lastProduct','stores','subCategories'));
+        // Fetch other data for the view
+        $stores = Store::all();
+        $subCategories = SubCategory::all();
+        $lastProduct = Product::latest()->first();
+
+        return view('dashboard.product.index', compact('products', 'lastProduct', 'stores', 'subCategories'));
     }
 
 
@@ -215,6 +226,63 @@ class ProductController extends Controller
             'relatedProduct' => $relatedProduct,
         ]);
     }
+
+
+    public function indexUserSide(Request $request)
+    {
+        // Start the query builder for Product with relationships
+        $query = Product::with(['images', 'image', 'subCategory', 'rates', 'feedbacks']);
+
+
+        // Check for subcategory filter
+        if ($request->has('subcategory')) {
+            $query->where('sub_category_id', $request->input('subcategory'));
+        }
+
+        // Check for rating filter
+        if ($request->has('rating')) {
+            $rating = $request->input('rating');
+            $query->whereHas('rates', function ($query) use ($rating) {
+                $query->where('rate', '>=', $rating);
+            });
+        }
+
+        // Check for price filter
+        if ($request->has('price_min') && $request->has('price_max')) {
+            $priceMin = $request->input('price_min');
+            $priceMax = $request->input('price_max');
+            $query->whereBetween('price', [$priceMin, $priceMax]);
+        }
+
+        // Execute the query and paginate results
+        $products = $query->paginate(6);
+
+        // Calculate average rating and total reviews for each product
+        $products->each(function ($product) {
+            $product->averageRating = $product->rates->count() > 0
+                ? $product->rates->sum('rate') / $product->rates->count()
+                : 0;
+            $product->totalReviews = $product->rates->count();
+        });
+
+        // Fetch categories and rating counts for filters
+        $subcategories = SubCategory::all();
+        $ratingCounts = [
+            5 => Product::whereHas('rates', fn($query) => $query->where('rate', 5))->count(),
+            4 => Product::whereHas('rates', fn($query) => $query->where('rate', '>=', 4))->count(),
+            3 => Product::whereHas('rates', fn($query) => $query->where('rate', '>=', 3))->count(),
+            2 => Product::whereHas('rates', fn($query) => $query->where('rate', '>=', 2))->count(),
+            1 => Product::whereHas('rates', fn($query) => $query->where('rate', '>=', 1))->count(),
+        ];
+
+        // Return the view with all necessary data
+        return view('userSide.productPage.index', compact('products', 'subcategories', 'ratingCounts'));
+    }
+
+
+
+
+
 
 
 

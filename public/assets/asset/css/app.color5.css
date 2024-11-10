@@ -6437,3 +6437,20 @@ input::-ms-clear {
 .icon-button:hover i {
     color: #ff0000; /* You can adjust this to match your design */
 }
+/* Custom alert styling */
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    padding: 15px;
+    margin: 15px;
+    border-radius: 4px;
+    position: relative;
+}
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background: none;
+    border: none;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\city;
 use App\Models\image;
 use Illuminate\Http\Request;
 use Psr\Container\ContainerExceptionInterface;
@@ -14,10 +15,32 @@ class CartController extends Controller
 
     public function index()
     {
+        $cities = City::all();
         // Get cart items from cookie, default to an empty array if not set
         $cart = json_decode(Cookie::get('cart', json_encode([])), true);
 
-        return view('userSide.cart.index', compact('cart'));
+        return view('userSide.cart.index', compact('cart', 'cities'));
+    }
+    public function update(Request $request, $productId)
+    {
+        $request->validate([
+            'quantity' => 'required|integer|min:1',
+        ]);
+
+        // Get the cart data from the cookie
+        $cart = json_decode(Cookie::get('cart', json_encode([])), true);
+
+        // Check if the product exists in the cart
+        if (isset($cart[$productId])) {
+            // Update the quantity of the product
+            $cart[$productId]['quantity'] = $request->quantity;
+
+            // Save the updated cart back to the cookie
+            return redirect()->back()->with('success', 'Cart updated successfully!')
+                ->cookie('cart', json_encode($cart), 60 * 24 * 7); // Set cookie for 1 week
+        } else {
+            return redirect()->back()->with('error', 'Product not found in cart.');
+        }
     }
 
     public function addToCart(Request $request)
@@ -50,6 +73,15 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Product added to cart successfully!')
             ->cookie('cart', json_encode($cart), 60 * 24 * 7); // Set cookie for 1 week
     }
+    public function clear()
+    {
+        // Set the cart cookie to an empty array
+        Cookie::queue(Cookie::forget('cart'));
+
+        // Redirect back with a success message
+        return redirect()->back()->with('success', 'Cart cleared successfully!');
+    }
+
     public function deleteCartItem($productId)
     {
         $cart = json_decode(Cookie::get('cart', json_encode([])), true);
