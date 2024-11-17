@@ -60,7 +60,6 @@ class CartController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'quantity' => $request->quantity,
-
         ];
 
         if (isset($cart[$cartItem['product_id']])) {

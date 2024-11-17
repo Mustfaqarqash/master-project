@@ -11,10 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('stores', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
+            $table->enum('payment_method', ['paypal', 'stripe','cashOnDelivery'])->default('cashOnDelivery');
             //
-            $table->unsignedBigInteger('user_id')->after('name');
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -23,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('stores', function (Blueprint $table) {
-
+        Schema::table('orders', function (Blueprint $table) {
+            //
         });
     }
 };

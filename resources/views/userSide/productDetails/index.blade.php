@@ -50,7 +50,6 @@
                                     <div id="pd-o-thumbnail">
                                         @foreach($product->images as $singleImage)
                                             <div>
-
                                                 <img class="u-img-fluid" src="{{ asset('storage/' . $singleImage->path) }}" alt="">
                                             </div>
                                         @endforeach
@@ -148,7 +147,6 @@
                             <div class="u-s-m-b-15">
                                 <form class="pd-detail__form"  action="{{ route('cart.add') }}" method="POST" enctype="multipart/form-data">
                                     <div class="pd-detail-inline-2">
-
                                         <div class="u-s-m-b-15">
                                                 @csrf <!-- Laravel CSRF protection -->
                                                 <input type="hidden" name="product_id" value="{{$product->id}}" >

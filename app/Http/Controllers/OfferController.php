@@ -171,7 +171,8 @@ class OfferController extends Controller
     public function indexUserSide()
     {
         $offers = Offer::with('category', 'store', 'images')->paginate(6);
-        return view('userSide.offerPage.index', compact('offers'));
+        $offerCategories = OffersCategory::all();
+        return view('userSide.offerPage.index', compact('offers','offerCategories'));
     }
 
 

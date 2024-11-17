@@ -6225,7 +6225,8 @@ input::-ms-clear {
           animation-name: fadeInLeft; }
 
 .product-slider, .tab-slider {
-  position: static; }
+  position: static;
+}
   .product-slider .owl-item:hover, .tab-slider .owl-item:hover {
     z-index: 2; }
 
@@ -6452,5 +6453,6 @@ input::-ms-clear {
     top: 0;
     right: 10px;
     background: none;
-    border: none;
+
+
 }

@@ -52,12 +52,15 @@
                             <div class="d-flex align-items-center">
                                 <div class="flex-shrink-0 me-2">
                                     <div class="avatar avatar-online">
-                                        <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                        <img  src="{{ Auth::user()->google_id ? asset(Auth::user()->image) :
+                                              ( Auth::user()->image?asset('storage/' . Auth::user()->image):
+                                                 asset('assets/img/avatars/3.png')) }}"
+                                              alt class="w-px-40 h-auto rounded-circle" />
                                     </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                    <h6 class="mb-0 small">John Doe</h6>
-                                    <small class="text-muted">Admin</small>
+                                    <h6 class="mb-0 small"> {{Auth::user()->name}}</h6>
+                                    <small class="text-muted">{{Auth::user()->role}}</small>
                                 </div>
                             </div>
                         </a>
@@ -66,7 +69,7 @@
                         <div class="dropdown-divider"></div>
                     </li>
                     <li>
-                        <a class="dropdown-item" href="#">
+                        <a class="dropdown-item" href="{{route('account.show', Auth::user()->id)}}">
                             <i class="ri-user-3-line ri-22px me-2"></i>
                             <span class="align-middle">My Profile</span>
                         </a>

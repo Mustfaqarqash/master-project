@@ -55,6 +55,13 @@ Route::prefix('dashboard')->middleware(['auth' , 'CheckStore'])->group(function 
         Route::post('account/update', [UserController::class, 'updateAccount'])->name('account.update');
         Route::post('account/deactivate', [UserController::class, 'deactivateAccount'])->name('account.deactivate');
     });
+    Route::Get('/order' ,[OrderController::class , 'indexDashboard'])->name('order.index');
+    Route::Get('/order/{id}' ,[OrderController::class , 'show'])->name('order.show');
+    Route::get('/order/{id}/edit', [OrderController::class, 'edit'])->name('order.edit');
+    Route::PUT('/order/{id}', [OrderController::class, 'update'])->name('order.update');
+    Route::delete('/order/{id}', [OrderController::class, 'delete'])->name('order.delete');
+
+
 });
 
 
