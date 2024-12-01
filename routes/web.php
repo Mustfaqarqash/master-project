@@ -94,7 +94,17 @@ Route::prefix('userSide')->group(function () {
 
     Route::get('productPage' ,[ProductController::class, 'indexUserSide'])->name('productPage');
     Route::get('offerPage' , [OfferController::class , 'indexUserSide'])->name('offerPage');
+    Route::get('userdashbaord' , [OrderController::class,'indexUserSide'])->name('userdashbaord')->middleware('auth');
+    Route::get('profile' , [UserController::class,'showProfile'])->name('user.profile')->middleware('auth');
+    Route::get('addressBook' , [AddressController::class,'index'])->name('user.addressBook')->middleware('auth');
+    Route::get('aboutus' , function (){
+        return view('aboutus');
+    })->name('aboutus');
+    Route::get('FAQ' , function (){
+        return view('faq');
+    })->name('FAQ');
 });
+
 
 
 

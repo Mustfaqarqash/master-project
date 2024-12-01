@@ -1,8 +1,8 @@
 @php
-    use Illuminate\Support\Facades\Cookie;
+    use App\Models\city;use Illuminate\Support\Facades\Auth;use Illuminate\Support\Facades\Cookie;
     $cart = json_decode(Cookie::get('cart', json_encode([])), true);
 @endphp
-<!--====== Main Header ======-->
+    <!--====== Main Header ======-->
 <header class="header--style-1">
 
     <!--====== Nav 1 ======-->
@@ -14,9 +14,10 @@
 
                 <!--====== Main Logo ======-->
 
-                <a class="main-logo" href="index.html">
+                <a class="main-logo" href="#">
 
-                    <img src="{{asset('assets/asset/images/logo/logo-1.png')}}" alt=""></a>
+                    <img width="100" height="100" alt="" viewBox="0 0 250 196" fill="none" src="{{asset('assets/img/avatars/logo.png')}}">
+                </a>
                 <!--====== End - Main Logo ======-->
 
 
@@ -25,16 +26,19 @@
 
                     <label for="main-search"></label>
 
-                    <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search" placeholder="Search">
+                    <input class="input-text input-text--border-radius input-text--style-1" type="text" id="main-search"
+                           placeholder="Search">
 
-                    <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button></form>
+                    <button class="btn btn--icon fas fa-search main-search-button" type="submit"></button>
+                </form>
                 <!--====== End - Search Form ======-->
 
 
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation">
 
-                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cogs" type="button"></button>
+                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cogs"
+                            type="button"></button>
 
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
@@ -53,36 +57,40 @@
                                 <ul style="width:120px">
                                     <li>
 
-                                        <a href="dashboard.html">
+                                        <a href="{{route('userdashbaord')}}">
 
                                             <i class="fas fa-user-circle u-s-m-r-6"></i>
                                             <span>Account</span>
 
                                         </a>
                                     </li>
-                                    @if(Auth::check())  <!-- Check if the user is authenticated -->
-                                    <li>
-                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                            @csrf
-                                        </form>
-                                        <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                            <i class="fas fa-lock-open u-s-m-r-6"></i>
-                                            <span>Signout</span>
-                                        </a>
-                                    </li>
-                                    @else  <!-- If the user is not authenticated -->
-                                    <li>
-                                        <a href="{{ route('register') }}">
-                                            <i class="fas fa-user-plus u-s-m-r-6"></i>
-                                            <span>Signup</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('login') }}">
-                                            <i class="fas fa-lock u-s-m-r-6"></i>
-                                            <span>Signin</span>
-                                        </a>
-                                    </li>
+                                    @if(Auth::check())
+                                        <!-- Check if the user is authenticated -->
+                                        <li>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                  style="display: none;">
+                                                @csrf
+                                            </form>
+                                            <a href="#"
+                                               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                <i class="fas fa-lock-open u-s-m-r-6"></i>
+                                                <span>Signout</span>
+                                            </a>
+                                        </li>
+                                    @else
+                                        <!-- If the user is not authenticated -->
+                                        <li>
+                                            <a href="{{ route('register') }}">
+                                                <i class="fas fa-user-plus u-s-m-r-6"></i>
+                                                <span>Signup</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('login') }}">
+                                                <i class="fas fa-lock u-s-m-r-6"></i>
+                                                <span>Signin</span>
+                                            </a>
+                                        </li>
                                     @endif
                                 </ul>
                                 <!--====== End - Dropdown ======-->
@@ -191,21 +199,24 @@
                                             <ul>
                                                 <li class="js-active">
 
-                                                    <a href="shop-side-version-2.html"><i class="fas fa-tv u-s-m-r-6"></i>
+                                                    <a href="shop-side-version-2.html"><i
+                                                            class="fas fa-tv u-s-m-r-6"></i>
 
                                                         <span>Electronics</span></a>
 
                                                     <span class="js-menu-toggle js-toggle-mark"></span></li>
                                                 <li>
 
-                                                    <a href="shop-side-version-2.html"><i class="fas fa-female u-s-m-r-6"></i>
+                                                    <a href="shop-side-version-2.html"><i
+                                                            class="fas fa-female u-s-m-r-6"></i>
 
                                                         <span>Women's Clothing</span></a>
 
                                                     <span class="js-menu-toggle"></span></li>
                                                 <li>
 
-                                                    <a href="shop-side-version-2.html"><i class="fas fa-male u-s-m-r-6"></i>
+                                                    <a href="shop-side-version-2.html"><i
+                                                            class="fas fa-male u-s-m-r-6"></i>
 
                                                         <span>Men's Clothing</span></a>
 
@@ -250,7 +261,8 @@
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">3D PRINTER & SUPPLIES</a></li>
+                                                            <a href="shop-side-version-2.html">3D PRINTER & SUPPLIES</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">3d Printer</a></li>
@@ -259,29 +271,34 @@
                                                             <a href="shop-side-version-2.html">3d Printing Pen</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">3d Printing Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">3d Printing
+                                                                Accessories</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">3d Printer Module Board</a></li>
+                                                            <a href="shop-side-version-2.html">3d Printer Module
+                                                                Board</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">HOME AUDIO & VIDEO</a></li>
+                                                            <a href="shop-side-version-2.html">HOME AUDIO & VIDEO</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">TV Boxes</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">TC Receiver & Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">TC Receiver &
+                                                                Accessories</a></li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Display Dongle</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Home Theater System</a></li>
+                                                            <a href="shop-side-version-2.html">Home Theater System</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-3">
@@ -297,7 +314,8 @@
                                                             <a href="shop-side-version-2.html">Mp3 Players</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Speakers & Radios</a></li>
+                                                            <a href="shop-side-version-2.html">Speakers & Radios</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Microphones</a></li>
@@ -307,16 +325,20 @@
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">VIDEO GAME ACCESSORIES</a></li>
+                                                            <a href="shop-side-version-2.html">VIDEO GAME
+                                                                ACCESSORIES</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Nintendo Video Games Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">Nintendo Video Games
+                                                                Accessories</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Sony Video Games Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">Sony Video Games
+                                                                Accessories</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Xbox Video Games Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">Xbox Video Games
+                                                                Accessories</a></li>
                                                     </ul>
                                                 </div>
                                             </div>
@@ -329,7 +351,8 @@
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">SECURITY & PROTECTION</a></li>
+                                                            <a href="shop-side-version-2.html">SECURITY & PROTECTION</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Security Cameras</a></li>
@@ -341,36 +364,43 @@
                                                             <a href="shop-side-version-2.html">Security Gadgets</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">CCTV Security & Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">CCTV Security &
+                                                                Accessories</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">PHOTOGRAPHY & CAMERA</a></li>
+                                                            <a href="shop-side-version-2.html">PHOTOGRAPHY & CAMERA</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Digital Cameras</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Sport Camera & Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">Sport Camera &
+                                                                Accessories</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Camera Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">Camera Accessories</a>
+                                                        </li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Lenses & Accessories</a></li>
+                                                            <a href="shop-side-version-2.html">Lenses & Accessories</a>
+                                                        </li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-3">
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">ARDUINO COMPATIBLE</a></li>
+                                                            <a href="shop-side-version-2.html">ARDUINO COMPATIBLE</a>
+                                                        </li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Raspberry Pi & Orange Pi</a></li>
+                                                            <a href="shop-side-version-2.html">Raspberry Pi & Orange
+                                                                Pi</a></li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Module Board</a></li>
@@ -411,7 +441,8 @@
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">NECESSARY ACCESSORIES</a></li>
+                                                            <a href="shop-side-version-2.html">NECESSARY ACCESSORIES</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Flash Cards</a></li>
@@ -431,7 +462,9 @@
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-0.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-0.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--====== End - Mega Menu Row ======-->
@@ -449,14 +482,18 @@
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-1.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-1.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-2.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-2.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--====== End - Mega Menu Row ======-->
@@ -496,7 +533,8 @@
                                                             <a href="shop-side-version-2.html">Brief Sets</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Bustiers & Corsets</a></li>
+                                                            <a href="shop-side-version-2.html">Bustiers & Corsets</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Panties</a></li>
@@ -578,7 +616,8 @@
                                                             <a href="shop-side-version-2.html">Trucker Jackets</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Windbreaker Jackets</a></li>
+                                                            <a href="shop-side-version-2.html">Windbreaker Jackets</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Leather Jackets</a></li>
@@ -607,7 +646,8 @@
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">OTHER ACCESSORIES</a></li>
+                                                            <a href="shop-side-version-2.html">OTHER ACCESSORIES</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Bags</a></li>
@@ -633,14 +673,18 @@
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-3.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-3.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-3 mega-image">
                                                     <div class="mega-banner">
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-4.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-4.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--====== End - Mega Menu Row ======-->
@@ -658,21 +702,27 @@
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-5.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-5.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-6.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-6.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-4 mega-image">
                                                     <div class="mega-banner">
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-7.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-7.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--====== End - Mega Menu Row ======-->
@@ -775,7 +825,8 @@
                                                             <a href="shop-side-version-2.html">Trucker Jackets</a></li>
                                                         <li>
 
-                                                            <a href="shop-side-version-2.html">Windbreaker Jackets</a></li>
+                                                            <a href="shop-side-version-2.html">Windbreaker Jackets</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Leather Jackets</a></li>
@@ -823,7 +874,8 @@
                                                     <ul>
                                                         <li class="mega-list-title">
 
-                                                            <a href="shop-side-version-2.html">OTHER ACCESSORIES</a></li>
+                                                            <a href="shop-side-version-2.html">OTHER ACCESSORIES</a>
+                                                        </li>
                                                         <li>
 
                                                             <a href="shop-side-version-2.html">Bags</a></li>
@@ -849,14 +901,18 @@
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-8.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-8.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                                 <div class="col-lg-6 mega-image">
                                                     <div class="mega-banner">
 
                                                         <a class="u-d-block" href="shop-side-version-2.html">
 
-                                                            <img class="u-img-fluid u-d-block" src="images/banners/banner-mega-9.jpg" alt=""></a></div>
+                                                            <img class="u-img-fluid u-d-block"
+                                                                 src="images/banners/banner-mega-9.jpg" alt=""></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!--====== End - Mega Menu Row ======-->
@@ -905,7 +961,8 @@
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation2">
 
-                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog" type="button"></button>
+                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-cog"
+                            type="button"></button>
 
                     <!--====== Menu ======-->
                     <div class="ah-lg-mode">
@@ -918,258 +975,25 @@
 
                                 <a href="{{route('productPage')}}">NEW ARRIVALS</a></li>
                             <li class="has-dropdown">
+                                <a href="{{route('offerPage')}}">OFFERS</a></li>
 
-                                <a>PAGES<i class="fas fa-angle-down u-s-m-l-6"></i></a>
 
-                                <!--====== Dropdown ======-->
 
-                                <span class="js-menu-toggle"></span>
-                                <ul style="width:170px">
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                        <a>Home<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:118px">
-                                            <li>
-
-                                                <a href="index.html">Home 1</a></li>
-                                            <li>
-
-                                                <a href="index-2.html">Home 2</a></li>
-                                            <li>
-
-                                                <a href="index-3.html">Home 3</a></li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                        <a>Account<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li>
-
-                                                <a href="{{route('login')}}">Signin / Already Registered</a></li>
-                                            <li>
-
-                                                <a href="">Signup / Register</a></li>
-                                            <li>
-
-                                                <a href="lost-password.html">Lost Password</a></li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                        <a href="dashboard.html">Dashboard<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                                <a href="dashboard.html">Manage My Account<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                                <!--====== Dropdown ======-->
-
-                                                <span class="js-menu-toggle"></span>
-                                                <ul style="width:180px">
-                                                    <li>
-
-                                                        <a href="dash-edit-profile.html">Edit Profile</a></li>
-                                                    <li>
-
-                                                        <a href="dash-address-book.html">Edit Address Book</a></li>
-                                                    <li>
-
-                                                        <a href="dash-manage-order.html">Manage Order</a></li>
-                                                </ul>
-                                                <!--====== End - Dropdown ======-->
-                                            </li>
-                                            <li>
-
-                                                <a href="dash-my-profile.html">My Profile</a></li>
-                                            <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                                <a href="dash-address-book.html">Address Book<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                                <!--====== Dropdown ======-->
-
-                                                <span class="js-menu-toggle"></span>
-                                                <ul style="width:180px">
-                                                    <li>
-
-                                                        <a href="dash-address-make-default.html">Address Make Default</a></li>
-                                                    <li>
-
-                                                        <a href="dash-address-add.html">Add New Address</a></li>
-                                                    <li>
-
-                                                        <a href="dash-address-edit.html">Edit Address Book</a></li>
-                                                </ul>
-                                                <!--====== End - Dropdown ======-->
-                                            </li>
-                                            <li>
-
-                                                <a href="dash-track-order.html">Track Order</a></li>
-                                            <li>
-
-                                                <a href="dash-my-order.html">My Orders</a></li>
-                                            <li>
-
-                                                <a href="dash-payment-option.html">My Payment Options</a></li>
-                                            <li>
-
-                                                <a href="dash-cancellation.html">My Returns & Cancellations</a></li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                        <a>Empty<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li>
-
-                                                <a href="empty-search.html">Empty Search</a></li>
-                                            <li>
-
-                                                <a href="empty-cart.html">Empty Cart</a></li>
-                                            <li>
-
-                                                <a href="empty-wishlist.html">Empty Wishlist</a></li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                        <a>Product Details<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li>
-
-                                                <a href="product-detail.html">Product Details</a></li>
-                                            <li>
-
-                                                <a href="product-detail-variable.html">Product Details Variable</a></li>
-                                            <li>
-
-                                                <a href="product-detail-affiliate.html">Product Details Affiliate</a></li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                        <a>Shop Grid Layout<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li>
-
-                                                <a href="shop-grid-left.html">Shop Grid Left Sidebar</a></li>
-                                            <li>
-
-                                                <a href="shop-grid-right.html">Shop Grid Right Sidebar</a></li>
-                                            <li>
-
-                                                <a href="shop-grid-full.html">Shop Grid Full Width</a></li>
-                                            <li>
-
-                                                <a href="shop-side-version-2.html">Shop Side Version 2</a></li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li class="has-dropdown has-dropdown--ul-left-100">
-
-                                        <a>Shop List Layout<i class="fas fa-angle-down i-state-right u-s-m-l-6"></i></a>
-
-                                        <!--====== Dropdown ======-->
-
-                                        <span class="js-menu-toggle"></span>
-                                        <ul style="width:200px">
-                                            <li>
-
-                                                <a href="shop-list-left.html">Shop List Left Sidebar</a></li>
-                                            <li>
-
-                                                <a href="shop-list-right.html">Shop List Right Sidebar</a></li>
-                                            <li>
-
-                                                <a href="shop-list-full.html">Shop List Full Width</a></li>
-                                        </ul>
-                                        <!--====== End - Dropdown ======-->
-                                    </li>
-                                    <li>
-
-                                        <a href="cart.html">Cart</a></li>
-                                    <li>
-
-                                        <a href="wishlist.html">Wishlist</a></li>
-                                    <li>
-
-                                        <a href="checkout.html">Checkout</a></li>
-                                    <li>
-
-                                        <a href="faq.html">FAQ</a></li>
-                                    <li>
-
-                                        <a href="about.html">About us</a></li>
-                                    <li>
-
-                                        <a href="contact.html">Contact</a></li>
-                                    <li>
-
-                                        <a href="404.html">404</a></li>
-                                </ul>
-                                <!--====== End - Dropdown ======-->
                             </li>
                             <li class="has-dropdown">
 
-                                <a>BLOG<i class="fas fa-angle-down u-s-m-l-6"></i></a>
+                                <a href="{{route('aboutus')}}">ABOUT US</a></li>
 
-                                <!--====== Dropdown ======-->
 
-                                <span class="js-menu-toggle"></span>
-                                <ul style="width:200px">
-                                    <li>
-
-                                        <a href="blog-left-sidebar.html">Blog Left Sidebar</a></li>
-                                    <li>
-
-                                        <a href="blog-right-sidebar.html">Blog Right Sidebar</a></li>
-                                    <li>
-
-                                        <a href="blog-sidebar-none.html">Blog Sidebar None</a></li>
-                                    <li>
-
-                                        <a href="blog-masonry.html">Blog Masonry</a></li>
-                                    <li>
-
-                                        <a href="blog-detail.html">Blog Details</a></li>
-                                </ul>
-                                <!--====== End - Dropdown ======-->
                             </li>
-                            <li>
+                            </li>   <li class="has-dropdown">
 
-                                <a href="shop-side-version-2.html">VALUE OF THE DAY</a></li>
-                            <li>
+                                <a href="{{route('FAQ')}}">FAQ</a></li>
 
-                                <a href="shop-side-version-2.html">GIFT CARDS</a></li>
+
+                            </li>
+
+
                         </ul>
                         <!--====== End - List ======-->
                     </div>
@@ -1181,7 +1005,9 @@
                 <!--====== Dropdown Main plugin ======-->
                 <div class="menu-init" id="navigation3">
 
-                    <button class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop" type="button"></button>
+                    <button
+                        class="btn btn--icon toggle-button toggle-button--secondary fas fa-shopping-bag toggle-button-shop"
+                        type="button"></button>
 
                     <span class="total-item-round">2</span>
 
@@ -1202,7 +1028,18 @@
 
                                 <a class="mini-cart-shop-link"><i class="fas fa-shopping-bag"></i>
                                     @php
-                                        $itemCount = collect($cart)->sum('quantity');
+
+                                       $cities = City::all();
+                                       $userId = Auth::check() ? Auth::id() : null;
+
+                                       // Get cart items from cookie, default to an empty array if not set
+                                       $cart = json_decode(Cookie::get('cart', json_encode([])), true);
+
+                                       // Filter cart items for the authenticated user
+                                       $userCart = $userId ? array_filter($cart, function ($item) use ($userId) {
+                                           return $item['user_id'] === $userId;
+                                       }) : [];
+                                          $itemCount = collect($userCart)->sum('quantity');
                                     @endphp
                                     <span class="total-item-round">{{$itemCount}}</span></a>
 
@@ -1213,20 +1050,23 @@
 
                                     <!--====== Mini Product Container ======-->
                                     <div class="mini-product-container gl-scroll u-s-m-b-15">
-                                        @foreach($cart as $item)
+                                        @foreach($userCart as $item)
                                             <!--====== Card for mini cart ======-->
                                             <div class="card-mini-product">
                                                 <div class="mini-product">
                                                     <div class="mini-product__image-wrapper">
 
-                                                        <a class="mini-product__link" href="{{route('productDetails' , $item['product_id'])}}">
+                                                        <a class="mini-product__link"
+                                                           href="{{route('productDetails' , $item['product_id'])}}">
 
                                                             @php
                                                                 $product = \App\Models\product::find($item['product_id']);
                                                                 $image= $product->images->first()->path;
                                                             @endphp
 
-                                                            <img class="u-img-fluid" src="{{asset('storage/' . $image)}}" alt="{{ $item['name'] }}">
+                                                            <img class="u-img-fluid"
+                                                                 src="{{asset('storage/' . $image)}}"
+                                                                 alt="{{ $item['name'] }}">
                                                         </a>
                                                     </div>
                                                     <div class="mini-product__info-wrapper">
@@ -1242,19 +1082,22 @@
 
                                                                 <a href="{{route('productDetails' , $item['product_id'])}}">{{$item['name']}}</a></span>
 
-                                                        <span class="mini-product__quantity">x{{$item['quantity']}}</span>
+                                                        <span
+                                                            class="mini-product__quantity">x{{$item['quantity']}}</span>
 
-                                                        <span class="mini-product__price">${{$item['price']}}</span></div>
+                                                        <span class="mini-product__price">${{$item['price']}}</span>
+                                                    </div>
                                                 </div>
 
-                                                <form action="{{ route('cart.delete', $item['product_id']) }}" method="POST">
+                                                <form action="{{ route('cart.delete', $item['product_id']) }}"
+                                                      method="POST">
                                                     @csrf
-                                                    <button type="submit" class="far fa-trash-alt table-p__delete-link" onclick="return confirm('Are you sure you want to remove this item?');"></button>
+                                                    <button type="submit" class="far fa-trash-alt table-p__delete-link"
+                                                            onclick="return confirm('Are you sure you want to remove this item?');"></button>
                                                 </form>
                                             </div>
                                             <!--====== End - Card for mini cart ======-->
                                         @endforeach
-
 
 
                                     </div>
@@ -1275,9 +1118,11 @@
                                             <span class="subtotal-value">${{$total + $tax}}</span></div>
                                         <div class="mini-action">
 
-                                            <a class="mini-link btn--e-brand-b-2" href="{{route('checkoutView')}}">PROCEED TO CHECKOUT</a>
+                                            <a class="mini-link btn--e-brand-b-2" href="{{route('checkoutView')}}">PROCEED
+                                                TO CHECKOUT</a>
 
-                                            <a class="mini-link btn--e-transparent-secondary-b-2" href="{{route('cart.index')}}">VIEW CART</a></div>
+                                            <a class="mini-link btn--e-transparent-secondary-b-2"
+                                               href="{{route('cart.index')}}">VIEW CART</a></div>
                                     </div>
                                     <!--====== End - Mini Product Statistics ======-->
                                 </div>

@@ -20,6 +20,7 @@ class OrderController extends Controller
         return view('userSide.checkout.index');
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
@@ -37,35 +38,47 @@ class OrderController extends Controller
             return redirect()->back()->with('error', 'Your cart is empty!');
         }
 
+        $user = Auth::user();
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'You must be logged in to place an order.');
+        }
+
+        // Extract unique store IDs from the cart
+        $storeIds = collect($cart)->pluck('store_id')->unique();
+
+        // Check if there are multiple store IDs
+        if ($storeIds->count() > 1) {
+            return redirect()->back()->with('error', 'You cannot place an order with items from multiple stores.');
+        }
+
+        // Retrieve the store_id (there will be only one since we checked uniqueness)
+        $storeId = $storeIds->first();
+
         // Calculate the total price of items in the cart
         $orderTotal = collect($cart)->sum(function ($item) {
             return $item['price'] * $item['quantity'];
         });
 
         $orderStatus = 'Pending';
-        $user = Auth::user();
-
-        if (!$user) {
-            return redirect()->route('login')->with('error', 'You must be logged in to place an order.');
-        }
 
         // Create the order
-        $order = Order::create([
-            'order_total_price' => $orderTotal,
-            'order_status' => $orderStatus,
-            'user_id' => $user->id,
-        ]);
+        $order = new Order();
+        $order->order_total_price = $orderTotal;
+        $order->order_status = $orderStatus;
+        $order->user_id = $user->id;
+        $order->store_id = $storeId;
+        $order->save(); // Save the order
 
         // Insert each cart item as an order detail
         foreach ($cart as $item) {
-            order_detail::create([
-                'order_id' => $order->id,
-                'product_id' => $item['product_id'], // Ensure product_id is included in cart data
-                'quantity' => $item['quantity'],
-                'price' => $item['price'],
-                'total_price' => $item['price'] * $item['quantity'],
-                'payment_method'=>'Cash on Delivery'
-            ]);
+            $orderDetail = new order_detail();
+            $orderDetail->order_id = $order->id;
+            $orderDetail->product_id = $item['product_id'];
+            $orderDetail->quantity = $item['quantity'];
+            $orderDetail->price = $item['price'];
+            $orderDetail->total_price = $item['price'] * $item['quantity'];
+            $orderDetail->payment_method = 'Cash on Delivery';
+            $orderDetail->save(); // Save the order detail
         }
 
         // Clear the cart cookie
@@ -75,7 +88,9 @@ class OrderController extends Controller
     }
 
 
-/**
+
+
+    /**
      * Display the specified resource.
      */
     public function show(string $id)
@@ -165,5 +180,38 @@ class OrderController extends Controller
 
         return view('dashboard.order.index', compact('orders' ,'orderStats'));
     }
+    public function indexUserSide()
+    {
+        // Get the authenticated user ID
+        $userid = Auth::user() ? Auth::user()->id : null;
+        $user = User::with('address')->find( $userid);
+
+        // Fetch orders for the authenticated user with eager loading
+        $orders = Order::where('user_id', $userid)
+            ->with('user', 'store', 'address')
+            ->get();
+
+        // Calculate order statistics for the authenticated user
+        $orderStats = [
+            'dispatched' => Order::where('user_id', $userid)
+                ->where('order_status', 'dispatched')
+                ->count(),
+            'ready' => Order::where('user_id', $userid)
+                ->where('order_status', 'ready')
+                ->count(),
+            'delivered' => Order::where('user_id', $userid)
+                ->where('order_status', 'delivered')
+                ->count(),
+            'outForDelivery' => Order::where('user_id', $userid)
+                ->where('order_status', 'out_for_delivery')
+                ->count(),
+            'pending' => Order::where('user_id', $userid)
+                ->where('order_status', 'pending')
+                ->count(),
+        ];
+
+        return view('userSide.userdashboard.index', compact('orders', 'orderStats','user'));
+    }
+
 
 }

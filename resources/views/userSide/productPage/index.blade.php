@@ -3,7 +3,16 @@
 
     <!--====== App Content ======-->
     <div class="app-content">
-
+        @if (session('error'))
+            <script>
+                alert("{{ session('error') }}");
+            </script>
+        @endif
+        @if (session('success'))
+            <script>
+                alert("{{ session('success') }}");
+            </script>
+        @endif
         <!--====== Section 1 ======-->
         <div class="u-s-p-y-90">
             <div class="container">

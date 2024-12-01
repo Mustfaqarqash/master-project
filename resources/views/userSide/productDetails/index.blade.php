@@ -2,7 +2,16 @@
 @section('content')
     <!--====== App Content ======-->
     <div class="app-content">
-
+        @if (session('error'))
+            <script>
+                alert("{{ session('error') }}");
+            </script>
+        @endif
+        @if (session('success'))
+            <script>
+                alert("{{ session('success') }}");
+            </script>
+        @endif
         <!--====== Section 1 ======-->
         <div class="u-s-p-t-90">
             <div class="container">
@@ -158,6 +167,15 @@
                                     </div>
                                 </form>
                             </div>
+                                    <div  class="u-s-m-b-15">
+                                        <img
+                                            src="{{ asset('storage/' . $product->store->image) }}"
+                                            style="width: 50px; border-radius: 50%"
+                                        />
+                                        <div>
+                                            {{ $product->store->name}}
+                                        </div>
+                                    </div>
                             <div class="u-s-m-b-15">
 
                                 <span class="pd-detail__label u-s-m-b-8">Product Policy:</span>

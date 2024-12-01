@@ -13,7 +13,10 @@ class AddressController extends Controller
      */
     public function index()
     {
-        //
+        $user = auth()->user();
+        $addresses = address::where('user_id',$user->id)->get(); // Assuming orders relationship exists in User model
+
+        return view('userSide.userdashboard.addressBook' ,compact('addresses','user'));
     }
 
     /**

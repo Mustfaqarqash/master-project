@@ -168,12 +168,21 @@ class OfferController extends Controller
         $offer->delete();
         return redirect()->route('offer.index')->with('success', 'Offer deleted successfully!');
     }
-    public function indexUserSide()
+    public function indexUserSide(Request $request)
     {
-        $offers = Offer::with('category', 'store', 'images')->paginate(6);
-        $offerCategories = OffersCategory::all();
-        return view('userSide.offerPage.index', compact('offers','offerCategories'));
+        $storeId = $request->get('store_id');
+        $offersQuery = Offer::with('category', 'store', 'images');
+
+        if ($storeId) {
+            $offersQuery->where('store_id', $storeId);
+        }
+
+        $offers = $offersQuery->paginate(6);
+        $offerStores = Store::all();
+
+        return view('userSide.offerPage.index', compact('offers', 'offerStores'));
     }
+
 
 
 }

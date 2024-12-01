@@ -195,7 +195,7 @@ class ProductController extends Controller
     public function showUserSide(string $id)
     {
         // Fetch the product with all the necessary relationships
-        $product = Product::with(['images', 'subCategory', 'rates', 'feedbacks'])->find($id);
+        $product = Product::with(['images', 'subCategory', 'rates', 'feedbacks','store'])->find($id);
         $allProduct = Product::all();
 
         // Check if the product exists

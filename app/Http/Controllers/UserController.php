@@ -193,5 +193,13 @@ class UserController extends Controller
 
         return redirect()->route('login')->with('success', 'Account deactivated successfully.');
     }
+    public function showProfile()
+    {
+        $user = auth()->user();
+        $orderCount = $user->orders()->count(); // Assuming orders relationship exists in User model
+
+        return view('userSide.userdashboard.profile', compact('user', 'orderCount'));
+    }
+
 
 }

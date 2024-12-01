@@ -41,7 +41,7 @@
                     <a class="collection" href="shop-side-version-2.html">
                         <div class="aspect aspect--bg-grey aspect--1286-890">
 
-                            <img class="aspect__img collection__img" src="{{'assets/asset/images/collection/coll-3.jpg'}}" alt=""></div>
+                            <img class="aspect__img collection__img" src="{{asset('assets/asset/images/collection/coll-3.jpg')}}" alt=""></div>
                     </a></div>
                 <div class="col-lg-5 col-md-5 u-s-m-b-30">
 

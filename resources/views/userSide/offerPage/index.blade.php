@@ -13,6 +13,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            margin-bottom: 150px;
         }
 
         .swiper-slide img {
@@ -27,17 +28,21 @@
 
         <!--====== Section 1 ======-->
         <div class="u-s-p-y-90">
-            <div class="container">
+            <div class="container mb-50">
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="shop-p">
                             <div class="shop-p__toolbar u-s-m-b-30">
                                 <div class="slider-fouc">
                                     <div class="owl-carousel product-slider " data-item="10"  >
-                                        @foreach($offerCategories as $offerCategory)
-                                            <img src="{{ asset('storage/' . $offerCategory->image) }}" alt="Category Image"
-                                                 style="border-radius: 50%; object-fit: cover; width:100px ; height: 100px">
-                                        @endforeach
+
+                                            @foreach($offerStores as $offerStore)
+                                                <img src="{{ asset('storage/' . $offerStore->image) }}" alt="Category Image"
+                                                     style="border-radius: 50%; object-fit: cover; width:100px; height: 100px; cursor: pointer;"
+                                                     data-store-id="{{ $offerStore->id }}" class="store-filter">
+                                            @endforeach
+
+
 
                                     </div>
                                 </div>
@@ -136,6 +141,23 @@
         <!--====== End - Section 1 ======-->
     </div>
     <!--====== End - App Content ======-->
+    <script>
+        document.querySelectorAll('.store-filter').forEach(image => {
+            image.addEventListener('click', function () {
+                const storeId = this.getAttribute('data-store-id');
 
+                fetch(`?store_id=${storeId}`)
+                    .then(response => response.text())
+                    .then(html => {
+                        const parser = new DOMParser();
+                        const newContent = parser.parseFromString(html, 'text/html')
+                            .querySelector('.shop-p__collection');
+                        document.querySelector('.shop-p__collection').innerHTML = newContent.innerHTML;
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
+        });
+
+    </script>
 
 @endsection

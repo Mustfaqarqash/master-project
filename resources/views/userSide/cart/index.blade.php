@@ -42,8 +42,9 @@
                         <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
                             <div class="table-responsive">
                                 <table class="table-p">
+
                                     <tbody>
-                                    @forelse($cart as $item)
+                                    @forelse($userCart as $item)
                                         <!--====== Row ======-->
                                         <tr>
                                             <td>
